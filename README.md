@@ -35,6 +35,7 @@ jobs:
         uses: mxvsh/starkit@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-username: ${{ secrets.GITHUB_USERNAME }}
 ```
 
 ### Customization
