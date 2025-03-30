@@ -26,7 +26,7 @@ jobs:
         uses: mxvsh/starkit@v1.3.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-username: ${{ secrets.GITHUB_USERNAME }}
+          github-username: ${{ github.actor }}
 ```
 
 ### Configurations
@@ -52,7 +52,7 @@ You can customize the action by passing additional parameters:
 - `max-repos`: Maximum number of repositories per language (optional)
 
 
-## Future Feature Roadmap
+## Feature Roadmap
 
 - [ ] Custom badges for each language
 - [ ] Categorize by repository topics
