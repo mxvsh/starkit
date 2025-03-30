@@ -11,6 +11,8 @@ Add this to your workflow file (e.g., `.github/workflows/update-stars.yml`):
 ```yml
 name: Update Starred Repositories
 
+permissions: write-all
+
 on:
   schedule:
     - cron: '5 4 * * *'   # Run daily at 4:05 AM
