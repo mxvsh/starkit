@@ -1,6 +1,6 @@
 {
   "name": "starkit-action",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "GitHub Action to categorize starred repositories by language",
   "type": "module",
   "main": "index.ts",

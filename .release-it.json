@@ -1,4 +1,7 @@
 {
+  "npm": {
+    "publish": false
+  },
   "git": {
     "tagName": "v${version}",
     "commitMessage": "Release ${version}"
