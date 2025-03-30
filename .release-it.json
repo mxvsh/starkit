@@ -9,5 +9,10 @@
   "github": {
     "release": true,
     "tokenRef": "GITHUB_TOKEN"
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "out": ["README.md"]
+    }
   }
 }

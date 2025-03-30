@@ -39,6 +39,7 @@ runs:
     INPUT_GITHUB_USERNAME: ${{ inputs.github-username }}
     INPUT_README_PATH: ${{ inputs.readme-path }}
     INPUT_START_MARKER: ${{ inputs.start-marker }}
+    INPUT_END_MARKER: ${{ inputs.end-marker }}
     INPUT_INCLUDE_LANGUAGES: ${{ inputs.include-languages }}
     INPUT_EXCLUDE_LANGUAGES: ${{ inputs.exclude-languages }}
     INPUT_SORT_BY: ${{ inputs.sort-by }}

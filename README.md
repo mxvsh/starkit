@@ -1,15 +1,6 @@
 <img src="./starkit.svg" alt="starkit" />
 
-#
-
 A GitHub Action that automatically updates your README with a list of repositories you've starred on GitHub, categorized by programming language.
-
-## How It Works
-
-1. The action fetches all your starred repositories using GitHub API
-2. It groups them by programming language
-3. It generates a formatted markdown section
-4. It updates your README between specified markers
 
 ## Usage
 
@@ -32,18 +23,29 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Update README with Starred Repositories
-        uses: mxvsh/starkit@v1
+        uses: mxvsh/starkit@v1.2.9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-username: ${{ secrets.GITHUB_USERNAME }}
 ```
 
-### Customization
+### Configurations
+
+You can use markers to identify the section of your README that you want to update.
+
+```md
+# My Starred Repositories
+
+<!-- STARRED_REPOS_START -->
+
+<!-- STARRED_REPOS_END -->
+```
 
 You can customize the action by passing additional parameters:
 
 - `readme-path`: Path to your README file (default: `README.md`)
 - `start-marker`: Marker to identify section start (default: `<!-- STARRED_REPOS_START -->`)
+- `end-marker`: Marker to identify section end (default: `<!-- STARRED_REPOS_END -->`)
 - `include-languages`: Comma-separated list of languages to include (optional)
 - `exclude-languages`: Comma-separated list of languages to exclude (optional)
 - `sort-by`: Sort order (`name` or `count`, default: `name`)
