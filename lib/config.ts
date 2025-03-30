@@ -8,7 +8,7 @@ import type { ActionInputs } from './types';
  * @returns The input value
  */
 function getInput(name: string, required = false, defaultValue = ''): string {
-  const envName = `INPUT_${name.toUpperCase().replace(/-/g, '_')}`;
+  const envName = `${name.toUpperCase().replace(/-/g, '_')}`;
   const value = process.env[envName] || defaultValue;
 
   if (required && !value) {

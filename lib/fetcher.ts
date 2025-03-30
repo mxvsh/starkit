@@ -9,6 +9,10 @@ export class StarredReposFetcher {
   private username: string;
 
   constructor(token: string, username?: string) {
+    console.debug(
+      'Initializing Octokit with token: ',
+      token ? 'provided' : 'not provided',
+    );
     this.octokit = new Octokit({ auth: token });
     this.username = username || '';
   }
