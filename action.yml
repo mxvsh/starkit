@@ -32,28 +32,17 @@ inputs:
     required: false
 
 runs:
-  using: 'composite'
-  steps:
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v1
-
-    - name: Install dependencies
-      run: bun install
-      shell: bash
-
-    - name: Run action
-      run: bun run index.ts
-      shell: bash
-      env:
-        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
-        INPUT_USERNAME: ${{ inputs.username }}
-        INPUT_README_PATH: ${{ inputs.readme-path }}
-        INPUT_START_MARKER: ${{ inputs.start-marker }}
-        INPUT_END_MARKER: ${{ inputs.end-marker }}
-        INPUT_INCLUDE_LANGUAGES: ${{ inputs.include-languages }}
-        INPUT_EXCLUDE_LANGUAGES: ${{ inputs.exclude-languages }}
-        INPUT_SORT_BY: ${{ inputs.sort-by }}
-        INPUT_MAX_REPOS: ${{ inputs.max-repos }}
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+    INPUT_USERNAME: ${{ inputs.username }}
+    INPUT_README_PATH: ${{ inputs.readme-path }}
+    INPUT_START_MARKER: ${{ inputs.start-marker }}
+    INPUT_INCLUDE_LANGUAGES: ${{ inputs.include-languages }}
+    INPUT_EXCLUDE_LANGUAGES: ${{ inputs.exclude-languages }}
+    INPUT_SORT_BY: ${{ inputs.sort-by }}
+    INPUT_MAX_REPOS: ${{ inputs.max-repos }}
 
 branding:
   icon: 'star'
