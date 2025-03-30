@@ -1,5 +1,5 @@
 {
-  "name": "starred-repos-categorizer",
+  "name": "starkit-action",
   "version": "1.0.0",
   "description": "GitHub Action to categorize starred repositories by language",
   "type": "module",
