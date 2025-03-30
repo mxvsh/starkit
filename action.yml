@@ -1,0 +1,60 @@
+name: 'Starkit'
+description: 'Updates README with starred repositories categorized by language'
+author: 'mxvsh'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+  username:
+    description: 'GitHub username (defaults to action runner)'
+    required: false
+  readme-path:
+    description: 'Path to README file'
+    required: false
+    default: 'README.md'
+  start-marker:
+    description: 'Marker to identify section start'
+    required: false
+    default: '<!-- STARRED_REPOS_START -->'
+  include-languages:
+    description: 'Comma-separated list of languages to include'
+    required: false
+  exclude-languages:
+    description: 'Comma-separated list of languages to exclude'
+    required: false
+  sort-by:
+    description: 'Sort order (name, count)'
+    required: false
+    default: 'name'
+  max-repos:
+    description: 'Maximum repos per language'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+
+    - name: Install dependencies
+      run: bun install
+      shell: bash
+
+    - name: Run action
+      run: bun run index.ts
+      shell: bash
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+        INPUT_USERNAME: ${{ inputs.username }}
+        INPUT_README_PATH: ${{ inputs.readme-path }}
+        INPUT_START_MARKER: ${{ inputs.start-marker }}
+        INPUT_END_MARKER: ${{ inputs.end-marker }}
+        INPUT_INCLUDE_LANGUAGES: ${{ inputs.include-languages }}
+        INPUT_EXCLUDE_LANGUAGES: ${{ inputs.exclude-languages }}
+        INPUT_SORT_BY: ${{ inputs.sort-by }}
+        INPUT_MAX_REPOS: ${{ inputs.max-repos }}
+
+branding:
+  icon: 'star'
+  color: 'yellow'
