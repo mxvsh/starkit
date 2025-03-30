@@ -36,7 +36,7 @@ runs:
   image: 'Dockerfile'
   env:
     INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
-    INPUT_USERNAME: ${{ inputs.username }}
+    INPUT_GITHUB_USERNAME: ${{ inputs.github-username }}
     INPUT_README_PATH: ${{ inputs.readme-path }}
     INPUT_START_MARKER: ${{ inputs.start-marker }}
     INPUT_INCLUDE_LANGUAGES: ${{ inputs.include-languages }}
