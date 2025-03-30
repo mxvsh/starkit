@@ -3,6 +3,7 @@ export interface ActionInputs {
   username?: string;
   readmePath: string;
   startMarker: string;
+  endMarker: string;
   includeLanguages?: string[];
   excludeLanguages?: string[];
   sortBy: 'name' | 'count';

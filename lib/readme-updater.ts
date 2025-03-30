@@ -103,17 +103,26 @@ export class ReadmeUpdater {
     originalContent: string,
     newContent: string,
   ): string {
-    const { startMarker } = this.config;
+    const { startMarker, endMarker } = this.config;
     const startIndex = originalContent.indexOf(startMarker);
+    const endIndex = originalContent.indexOf(endMarker);
 
-    if (startIndex === -1) {
+    // If markers not found, append to the end
+    if (startIndex === -1 || endIndex === -1) {
       console.log(
         'Section markers not found, appending to the end of the file',
       );
-      return `${originalContent}\n\n${newContent}`;
+      return `${originalContent}\n\n${startMarker}\n${newContent}\n${endMarker}`;
     }
 
-    return originalContent.substring(0, startIndex) + newContent + '\n';
+    // Replace content between markers
+    return (
+      originalContent.substring(0, startIndex + startMarker.length) +
+      '\n' +
+      newContent +
+      '\n' +
+      originalContent.substring(endIndex)
+    );
   }
 
   /**

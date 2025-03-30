@@ -44,6 +44,7 @@ export function loadConfig(): ActionInputs {
     false,
     '<!-- STARRED_REPOS_START -->',
   );
+  const endMarker = getInput('end-marker', false, '<!-- STARRED_REPOS_END -->');
   const includeLanguagesStr = getInput('include-languages');
   const excludeLanguagesStr = getInput('exclude-languages');
   const sortBy = getInput('sort-by', false, 'name') as 'name' | 'count';
@@ -54,6 +55,7 @@ export function loadConfig(): ActionInputs {
     username: username || undefined,
     readmePath,
     startMarker,
+    endMarker,
     includeLanguages: parseArrayInput(includeLanguagesStr),
     excludeLanguages: parseArrayInput(excludeLanguagesStr),
     sortBy: ['name', 'count'].includes(sortBy) ? sortBy : 'name',
