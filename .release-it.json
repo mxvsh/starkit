@@ -1,0 +1,10 @@
+{
+  "git": {
+    "tagName": "v${version}",
+    "commitMessage": "Release ${version}"
+  },
+  "github": {
+    "release": true,
+    "tokenRef": "GITHUB_TOKEN"
+  }
+}
