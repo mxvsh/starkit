@@ -15,7 +15,7 @@ function getInput(
   const value = process.env[envName] || defaultValue;
 
   if (required && !value) {
-    throw new Error(`Input required and not supplied: ${name}`);
+    throw new Error(`Input required and not supplied: ${envName}`);
   }
 
   return value;
