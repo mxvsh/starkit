@@ -37,7 +37,7 @@ function parseArrayInput(value: string): string[] | undefined {
  */
 export function loadConfig(): ActionInputs {
   const githubToken = getInput('github-token', true);
-  const username = getInput('username');
+  const username = getInput('github-username', true);
   const readmePath = getInput('readme-path', false, 'README.md');
   const startMarker = getInput(
     'start-marker',
