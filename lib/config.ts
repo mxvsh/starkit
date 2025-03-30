@@ -7,15 +7,12 @@ import type { ActionInputs } from './types';
  * @param defaultValue The default value for the input
  * @returns The input value
  */
-function getInput(
-  envName: string,
-  required = false,
-  defaultValue = '',
-): string {
+function getInput(name: string, required = false, defaultValue = ''): string {
+  const envName = `INPUT_${name.toUpperCase().replace(/-/g, '_')}`;
   const value = process.env[envName] || defaultValue;
 
   if (required && !value) {
-    throw new Error(`Input required and not supplied: ${envName}`);
+    throw new Error(`Input required and not supplied: ${name}`);
   }
 
   return value;
@@ -39,18 +36,18 @@ function parseArrayInput(value: string): string[] | undefined {
  * @returns Parsed action inputs
  */
 export function loadConfig(): ActionInputs {
-  const githubToken = getInput('GITHUB_TOKEN', true);
-  const username = getInput('GITHUB_USERNAME');
-  const readmePath = getInput('README_PATH', false, 'README.md');
+  const githubToken = getInput('github-token', true);
+  const username = getInput('username');
+  const readmePath = getInput('readme-path', false, 'README.md');
   const startMarker = getInput(
-    'START_MARKER',
+    'start-marker',
     false,
     '<!-- STARRED_REPOS_START -->',
   );
-  const includeLanguagesStr = getInput('INCLUDE_LANGUAGES');
-  const excludeLanguagesStr = getInput('EXCLUDE_LANGUAGES');
-  const sortBy = getInput('SORT_BY', false, 'name') as 'name' | 'count';
-  const maxReposStr = getInput('MAX_REPOS');
+  const includeLanguagesStr = getInput('include-languages');
+  const excludeLanguagesStr = getInput('exclude-languages');
+  const sortBy = getInput('sort-by', false, 'name') as 'name' | 'count';
+  const maxReposStr = getInput('max-repos');
 
   return {
     githubToken,
