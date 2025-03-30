@@ -2,10 +2,14 @@ FROM oven/bun:latest
 
 WORKDIR /app
 
-COPY package.json bun.lockb* ./
-RUN bun install
+COPY package.json bun.lock ./
 
-COPY lib ./lib
+RUN bun install --frozen-lockfile ----production
+
+COPY lib/ ./lib/
 COPY index.ts tsconfig.json ./
+COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["bun", "run", "index.ts"] 
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"] 
