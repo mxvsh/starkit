@@ -1,4 +1,4 @@
-<img src="./starkit.svg" alt="starkit" />
+<img src="./starkit.png" alt="starkit" />
 
 A GitHub Action that automatically updates your README with a list of repositories you've starred on GitHub, categorized by programming language.
 
