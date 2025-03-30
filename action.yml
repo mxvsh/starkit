@@ -6,7 +6,7 @@ inputs:
   github-token:
     description: 'GitHub token for API access'
     required: true
-  username:
+  github-username:
     description: 'GitHub username (defaults to action runner)'
     required: false
   readme-path:
