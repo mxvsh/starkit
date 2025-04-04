@@ -49,6 +49,7 @@ export function loadConfig(): ActionInputs {
   const excludeLanguagesStr = getInput('exclude-languages');
   const sortBy = getInput('sort-by', false, 'name') as 'name' | 'count';
   const maxReposStr = getInput('max-repos');
+  const buildWebStr = getInput('build-web', false, 'false');
 
   return {
     githubToken,
@@ -60,5 +61,6 @@ export function loadConfig(): ActionInputs {
     excludeLanguages: parseArrayInput(excludeLanguagesStr),
     sortBy: ['name', 'count'].includes(sortBy) ? sortBy : 'name',
     maxRepos: maxReposStr ? parseInt(maxReposStr, 10) : undefined,
+    buildWeb: buildWebStr.toLowerCase() === 'true',
   };
 }

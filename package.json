@@ -7,15 +7,24 @@
   "scripts": {
     "start": "bun run index.ts",
     "build": "bun build index.ts --outdir dist --target bun",
-    "test": "bun test"
+    "test": "bun test",
+    "web:dev": "cd web && bun vite"
   },
   "dependencies": {
-    "octokit": "^3.1.2"
+    "lucide-react": "^0.487.0",
+    "octokit": "^3.1.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@release-it/bumper": "^7.0.2",
+    "@tailwindcss/vite": "^4.1.2",
     "@types/node": "^20.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.1",
     "bun-types": "latest",
-    "release-it": "^18.1.2"
+    "release-it": "^18.1.2",
+    "tailwindcss": "^4.1.2",
+    "vite": "^6.2.5"
   }
 }

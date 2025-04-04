@@ -4,6 +4,7 @@ import { loadConfig } from './lib/config';
 import { StarredReposFetcher } from './lib/fetcher';
 import { RepoProcessor } from './lib/processor';
 import { ReadmeUpdater } from './lib/readme-updater';
+import { WebBuilder } from './lib/web-builder';
 
 /**
  * Main function to run the GitHub Action
@@ -38,6 +39,19 @@ async function main() {
     } else {
       console.error(`Error: ${result.message}`);
       process.exit(1);
+    }
+
+    // Build web app if enabled
+    if (config.buildWeb) {
+      console.log('Building web application...');
+      const webBuilder = new WebBuilder(repositories, config);
+      const buildSuccess = await webBuilder.buildWebApp();
+
+      if (buildSuccess) {
+        console.log('Web application built successfully!');
+      } else {
+        console.error('Web application build failed.');
+      }
     }
   } catch (error) {
     console.error('An unexpected error occurred:');

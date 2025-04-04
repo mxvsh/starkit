@@ -70,6 +70,7 @@ export class StarredReposFetcher {
         }
 
         page++;
+
         console.log(
           `Fetched page ${page - 1}, found ${
             repositories.length

@@ -30,6 +30,10 @@ inputs:
   max-repos:
     description: 'Maximum repos per language'
     required: false
+  build-web:
+    description: 'Build web version for GitHub Pages'
+    required: false
+    default: 'false'
 
 runs:
   using: 'docker'
@@ -44,7 +48,8 @@ runs:
     INPUT_EXCLUDE_LANGUAGES: ${{ inputs.exclude-languages }}
     INPUT_SORT_BY: ${{ inputs.sort-by }}
     INPUT_MAX_REPOS: ${{ inputs.max-repos }}
+    INPUT_BUILD_WEB: ${{ inputs.build-web }}
 
 branding:
   icon: 'star'
-  color: 'yellow'
+  color: 'blue'

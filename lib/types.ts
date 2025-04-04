@@ -8,6 +8,7 @@ export interface ActionInputs {
   excludeLanguages?: string[];
   sortBy: 'name' | 'count';
   maxRepos?: number;
+  buildWeb?: boolean;
 }
 
 export interface Repository {

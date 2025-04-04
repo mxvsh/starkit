@@ -52,7 +52,58 @@ You can customize the action by passing additional parameters:
 - `exclude-languages`: Comma-separated list of languages to exclude (optional)
 - `sort-by`: Sort order (`name` or `count`, default: `name`)
 - `max-repos`: Maximum number of repositories per language (optional)
+- `build-web`: Set to `true` to build a web version for GitHub Pages (default: `false`)
 
+## GitHub Pages Integration
+
+Starkit can build a beautifully formatted web version of your starred repositories using GitHub Pages. This creates an interactive web app where you can filter and search through your repositories.
+
+### Setting up GitHub Pages
+
+1. Add `build-web: true` to your workflow configuration.
+2. Configure your repository for GitHub Pages to deploy from the `gh-pages` branch.
+
+Example workflow with GitHub Pages integration:
+
+```yml
+name: Update Starred Repositories and Deploy to GitHub Pages
+
+permissions: write-all
+
+on:
+  schedule:
+    - cron: '5 4 * * *'   # Run daily at 4:05 AM
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  update-stars:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update README and Build Web
+        uses: mxvsh/starkit@v1.3.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-username: ${{ github.actor }}
+          build-web: true
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
+```
+
+After successful deployment, your website will be available at `https://{username}.github.io/{repository-name}/`.
+
+The web version features:
+- Responsive design with a clean, modern interface
+- Language-based filtering
+- Search functionality
+- Interactive repository cards
+- Automatic color-coding for programming languages
 
 ## Feature Roadmap
 
@@ -61,6 +112,7 @@ You can customize the action by passing additional parameters:
 - [ ] Group by organization/owner
 - [ ] Filter by creation/update date
 - [ ] Collapsible sections by language
+- [x] Web version with GitHub Pages integration
 
 ### License
 
