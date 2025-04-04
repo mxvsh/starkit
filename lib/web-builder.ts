@@ -146,35 +146,52 @@ export class WebBuilder {
 
       // Create a tree with all the files in the dist directory
       console.log('Creating tree with build files...');
-      const files = readdirSync(distDir);
+
+      // Get all files recursively
+      const allFiles = await this.getAllFiles(distDir);
+      console.log(`Found ${allFiles.length} files to deploy`);
+
       const blobs = await Promise.all(
-        files.map(async file => {
-          const filePath = join(distDir, file);
-          const content = await readFile(filePath);
+        allFiles.map(async filePath => {
+          try {
+            // Get relative path for GitHub Pages
+            const relativePath = filePath
+              .substring(distDir.length + 1)
+              .replace(/\\/g, '/');
 
-          // Create a blob for each file
-          const { data: blob } = await this.octokit.rest.git.createBlob({
-            owner,
-            repo,
-            content: content.toString('base64'),
-            encoding: 'base64',
-          });
+            // Read file content as Buffer
+            const content = await readFile(filePath);
 
-          return {
-            path: file,
-            mode: '100644' as const, // Regular file with correct type
-            type: 'blob' as const,
-            sha: blob.sha,
-          };
+            // Create a blob for each file
+            const { data: blob } = await this.octokit.rest.git.createBlob({
+              owner,
+              repo,
+              content: content.toString('base64'),
+              encoding: 'base64',
+            });
+
+            return {
+              path: relativePath,
+              mode: '100644' as const, // Regular file with correct type
+              type: 'blob' as const,
+              sha: blob.sha,
+            };
+          } catch (error) {
+            console.error(`Error processing file ${filePath}:`, error);
+            return null;
+          }
         }),
       );
+
+      // Filter out any null results from errors
+      const validBlobs = blobs.filter(blob => blob !== null);
 
       // Create a tree
       const { data: tree } = await this.octokit.rest.git.createTree({
         owner,
         repo,
         base_tree: shaGhPages,
-        tree: blobs,
+        tree: validBlobs,
       });
 
       // Create a commit
@@ -204,6 +221,34 @@ export class WebBuilder {
     } catch (error) {
       console.error('Failed to deploy to GitHub Pages:', error);
       return false;
+    }
+  }
+
+  /**
+   * Get all files recursively from a directory
+   */
+  private async getAllFiles(dir: string): Promise<string[]> {
+    const { promises: fs } = require('fs');
+    const { join } = require('path');
+
+    try {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+
+      const files = await Promise.all(
+        entries.map(async (entry: any) => {
+          const path = join(dir, entry.name);
+          if (entry.isDirectory()) {
+            return await this.getAllFiles(path);
+          }
+          return path;
+        }),
+      );
+
+      // Flatten the array of arrays
+      return files.flat();
+    } catch (error) {
+      console.error(`Error reading directory ${dir}:`, error);
+      return [];
     }
   }
 
