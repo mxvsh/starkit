@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { Octokit } from 'octokit';
 import type { Repository, ActionInputs } from './types';
 import { write } from 'bun';
+import tailwindcss from '@tailwindcss/vite';
 
 export class WebBuilder {
   private repositories: Repository[];
@@ -53,9 +54,7 @@ export class WebBuilder {
         define: {
           'import.meta.env.REPOS': JSON.stringify(this.repositories),
         },
-        plugins: [
-          // We'll use the already installed TailwindCSS plugin
-        ],
+        plugins: [tailwindcss()],
       });
 
       // Verify the build output
