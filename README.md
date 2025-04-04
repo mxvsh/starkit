@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Update README with Starred Repositories
-        uses: mxvsh/starkit@v2.0.0
+        uses: mxvsh/starkit@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-username: ${{ github.actor }}
@@ -87,7 +87,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Update README and Build Web
-        uses: mxvsh/starkit@v2.0.0
+        uses: mxvsh/starkit@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-username: ${{ github.actor }}
@@ -126,7 +126,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Update README and Build Web
-        uses: mxvsh/starkit@v2.0.0
+        uses: mxvsh/starkit@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-username: ${{ github.actor }}
