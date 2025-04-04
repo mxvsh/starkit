@@ -68,7 +68,15 @@ Example workflow with GitHub Pages integration:
 ```yml
 name: Update Starred Repositories and Deploy to GitHub Pages
 
-permissions: write-all
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Configure GitHub Pages
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
 
 on:
   schedule:
@@ -88,12 +96,14 @@ jobs:
           github-username: ${{ github.actor }}
           build-web: true
       
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          force_orphan: true
+          path: ./dist
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 ```
 
 After successful deployment, your website will be available at `https://{username}.github.io/{repository-name}/`.
