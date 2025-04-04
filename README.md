@@ -60,10 +60,45 @@ Starkit can build a beautifully formatted web version of your starred repositori
 
 ### Setting up GitHub Pages
 
-1. Add `build-web: true` to your workflow configuration.
-2. Configure your repository for GitHub Pages to deploy from the `gh-pages` branch.
+Simply add `build-web: true` to your workflow configuration. Starkit will automatically:
+1. Build the web application
+2. Create or update the gh-pages branch
+3. Deploy the built files directly to GitHub Pages
+
+No additional actions or configuration needed!
 
 Example workflow with GitHub Pages integration:
+
+```yml
+name: Update Starred Repositories with GitHub Pages
+
+permissions:
+  contents: write # Needed for updating README and gh-pages branch
+
+on:
+  schedule:
+    - cron: '5 4 * * *'   # Run daily at 4:05 AM
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  update-stars:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update README and Build Web
+        uses: mxvsh/starkit@v2.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-username: ${{ github.actor }}
+          build-web: true
+```
+
+After successful deployment, your website will be available at `https://{username}.github.io/{repository-name}/`. Make sure to enable GitHub Pages in your repository settings to serve from the gh-pages branch.
+
+#### Advanced: Manual Deployment (Optional)
+
+If you prefer to use GitHub's official Pages deployment actions instead of the built-in deployment, you can use the following workflow:
 
 ```yml
 name: Update Starred Repositories and Deploy to GitHub Pages
@@ -89,6 +124,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+      
       - name: Update README and Build Web
         uses: mxvsh/starkit@v2.0.0
         with:
@@ -99,14 +135,12 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
       
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 ```
-
-After successful deployment, your website will be available at `https://{username}.github.io/{repository-name}/`.
 
 The web version features:
 - Responsive design with a clean, modern interface

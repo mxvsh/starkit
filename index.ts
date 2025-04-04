@@ -43,14 +43,16 @@ async function main() {
 
     // Build web app if enabled
     if (config.buildWeb) {
-      console.log('Building web application...');
+      console.log('Building web application and deploying to GitHub Pages...');
       const webBuilder = new WebBuilder(repositories, config);
       const buildSuccess = await webBuilder.buildWebApp();
 
       if (buildSuccess) {
-        console.log('Web application built successfully!');
+        console.log(
+          'Web application built successfully! Check GitHub Pages for the deployed site.',
+        );
       } else {
-        console.error('Web application build failed.');
+        console.error('Web application build or deployment failed.');
       }
     }
   } catch (error) {
