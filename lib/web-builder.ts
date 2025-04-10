@@ -50,6 +50,7 @@ export class WebBuilder {
           outDir: join(process.cwd(), 'dist'),
           emptyOutDir: true,
           minify: true,
+          copyPublicDir: true,
         },
         define: {
           'import.meta.env.REPOS': JSON.stringify(this.repositories),
