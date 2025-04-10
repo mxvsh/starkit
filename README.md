@@ -96,67 +96,14 @@ jobs:
 
 After successful deployment, your website will be available at `https://{username}.github.io/{repository-name}/`. Make sure to enable GitHub Pages in your repository settings to serve from the gh-pages branch.
 
-#### Advanced: Manual Deployment (Optional)
-
-If you prefer to use GitHub's official Pages deployment actions instead of the built-in deployment, you can use the following workflow:
-
-```yml
-name: Update Starred Repositories and Deploy to GitHub Pages
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-# Configure GitHub Pages
-environment:
-  name: github-pages
-  url: ${{ steps.deployment.outputs.page_url }}
-
-on:
-  schedule:
-    - cron: '5 4 * * *'   # Run daily at 4:05 AM
-  workflow_dispatch:      # Allow manual trigger
-
-jobs:
-  update-stars:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Update README and Build Web
-        uses: mxvsh/starkit@v2.3.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-username: ${{ github.actor }}
-          build-web: true
-      
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-      
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
-
-The web version features:
-- Responsive design with a clean, modern interface
-- Language-based filtering
-- Search functionality
-- Interactive repository cards
-- Automatic color-coding for programming languages
-
 ## Feature Roadmap
 
+- [x] Web version with GitHub Pages integration
 - [ ] Custom badges for each language
 - [ ] Categorize by repository topics
 - [ ] Group by organization/owner
 - [ ] Filter by creation/update date
 - [ ] Collapsible sections by language
-- [x] Web version with GitHub Pages integration
 
 ### License
 

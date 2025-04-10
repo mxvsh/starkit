@@ -9,7 +9,7 @@ interface RepositoryListProps {
 const RepositoryList: React.FC<RepositoryListProps> = ({ repositories }) => {
   if (repositories.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-8 text-center">
+      <div className="rounded-lg shadow-md p-8 text-center">
         <h2 className="text-xl font-semibold text-gray-600">
           No repositories found
         </h2>
@@ -21,15 +21,16 @@ const RepositoryList: React.FC<RepositoryListProps> = ({ repositories }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 overflow-auto max-h-screen">
-      <h2 className="text-xl font-semibold mb-4">
-        Repositories ({repositories.length})
-      </h2>
-      <div className="space-y-4">
-        {repositories.map(repo => (
-          <RepositoryCard key={repo.fullName} repository={repo} />
-        ))}
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 divide-x divide-y overflow-auto h-full">
+      {repositories.map((repo, index) => (
+        <RepositoryCard
+          key={repo.fullName}
+          repository={repo}
+          className={
+            index === repositories.length - 1 ? 'border-r border-b' : ''
+          }
+        />
+      ))}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import RepositoryList from './components/RepositoryList';
 import type { Repository } from '../lib/types';
+import Header from './components/Header';
 
 function App() {
   const [repositories] = useState<Repository[]>(
@@ -36,6 +37,24 @@ function App() {
   const languages = [
     ...new Set(repositories.map(repo => repo.language).filter(Boolean)),
   ];
+
+  return (
+    <div>
+      <Header />
+      <div className="flex items-start divide-x">
+        <Sidebar
+          languages={languages as string[]}
+          selectedLanguage={selectedLanguage}
+          onSelectLanguage={setSelectedLanguage}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          totalRepos={repositories.length}
+          filteredCount={filteredRepos.length}
+        />
+        <RepositoryList repositories={filteredRepos} />
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-muted">

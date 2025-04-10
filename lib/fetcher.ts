@@ -71,6 +71,8 @@ export class StarredReposFetcher {
 
         page++;
 
+        break;
+
         console.log(
           `Fetched page ${page - 1}, found ${
             repositories.length

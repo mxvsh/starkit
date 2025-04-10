@@ -8,13 +8,17 @@
     "start": "bun run index.ts",
     "build": "bun build index.ts --outdir dist --target bun",
     "test": "bun test",
-    "web:dev": "cd web && bun vite"
+    "web:dev": "vite -c web/vite.config.dev.ts"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.487.0",
     "octokit": "^3.1.2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.1.0"
   },
   "devDependencies": {
     "@release-it/bumper": "^7.0.2",
