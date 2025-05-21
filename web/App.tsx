@@ -11,7 +11,7 @@ function App() {
   );
   const [filteredRepos, setFilteredRepos] = useState<Repository[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [headerSearchTerm, setHeaderSearchTerm] = useState('');
 
   // Filter repositories based on selected language and search term
   useEffect(() => {
@@ -21,8 +21,8 @@ function App() {
       filtered = filtered.filter(repo => repo.language === selectedLanguage);
     }
 
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
+    if (headerSearchTerm) {
+      const term = headerSearchTerm.toLowerCase();
       filtered = filtered.filter(
         repo =>
           repo.name.toLowerCase().includes(term) ||
@@ -31,23 +31,25 @@ function App() {
     }
 
     setFilteredRepos(filtered);
-  }, [repositories, selectedLanguage, searchTerm]);
+  }, [repositories, selectedLanguage, headerSearchTerm]);
 
   // Get unique languages
   const languages = [
     ...new Set(repositories.map(repo => repo.language).filter(Boolean)),
   ];
 
+  const handleHeaderSearchTermChange = (term: string) => {
+    setHeaderSearchTerm(term);
+  };
+
   return (
     <div>
-      <Header />
+      <Header onSearchTermChange={handleHeaderSearchTermChange} />
       <div className="flex items-start divide-x">
         <Sidebar
           languages={languages as string[]}
           selectedLanguage={selectedLanguage}
           onSelectLanguage={setSelectedLanguage}
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
           totalRepos={repositories.length}
           filteredCount={filteredRepos.length}
         />
@@ -65,8 +67,6 @@ function App() {
             languages={languages as string[]}
             selectedLanguage={selectedLanguage}
             onSelectLanguage={setSelectedLanguage}
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
             totalRepos={repositories.length}
             filteredCount={filteredRepos.length}
           />

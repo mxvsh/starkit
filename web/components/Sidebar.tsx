@@ -5,8 +5,6 @@ interface SidebarProps {
   languages: string[];
   selectedLanguage: string | null;
   onSelectLanguage: (language: string | null) => void;
-  searchTerm: string;
-  onSearchChange: (search: string) => void;
   totalRepos: number;
   filteredCount: number;
 }
@@ -15,8 +13,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   languages,
   selectedLanguage,
   onSelectLanguage,
-  searchTerm,
-  onSearchChange,
   totalRepos,
   filteredCount,
 }) => {
